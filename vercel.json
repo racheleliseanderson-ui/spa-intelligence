@@ -1,0 +1,11 @@
+{
+  "framework": "tanstack-start",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    }
+  ]
+}
