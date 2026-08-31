@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { MiniResult, ResultCard } from "@/components/result-card";
 import { ExtLink, SectionHead, prefersReducedMotion, scrollToDesk } from "@/components/bits";
 import { track } from "@/lib/analytics";
 import { DEMOS } from "@/lib/data/demos";
-import { CONTEXT_LINKS, EDITORIAL } from "@/lib/data/editorial";
+import { CONTEXT_LINKS } from "@/lib/data/editorial";
 import { evaluate } from "@/lib/engine/evaluate";
 import { useDesk } from "@/lib/store";
 
@@ -393,77 +394,43 @@ export function Footer() {
     <footer className="no-print bg-(--navy-deep)">
       <div className="h-px w-full bg-(--gold)" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-5 py-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-16 md:pb-[calc(4rem+env(safe-area-inset-bottom))]">
-        <p className="font-display text-2xl leading-none text-(--gold) md:text-3xl">Northern Lantern House Labs</p>
-        <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
-          <div>
-            <p className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-(--pearl)/70">The House</p>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-(--pearl)/80">
-              Independent publications and the decision instruments built for them.
-            </p>
-            <ExtLink
-              href={EDITORIAL.house}
-              className="mt-3 inline-flex min-h-11 items-center text-sm text-(--gold-soft) hover:underline"
-            >
-              northernlanternhouse.com
-            </ExtLink>
-          </div>
-          <div>
-            <p className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-(--pearl)/70">This publication</p>
-            <div className="mt-3">
-              <ExtLink
-                href={EDITORIAL.home}
-                className="flex min-h-11 items-center text-sm text-(--pearl)/85 hover:text-(--gold-soft)"
-              >
-                Vanity or Vice
-              </ExtLink>
-              <ExtLink
-                href={EDITORIAL.makeupDesk}
-                className="flex min-h-11 items-center text-sm text-(--pearl)/85 hover:text-(--gold-soft)"
-              >
-                Makeup Intelligence
-              </ExtLink>
-              <ExtLink
-                href={EDITORIAL.skincareDesk}
-                className="flex min-h-11 items-center text-sm text-(--pearl)/85 hover:text-(--gold-soft)"
-              >
-                Skincare Desk
-              </ExtLink>
-              <span className="flex min-h-11 items-center text-sm text-(--pearl)/70">
-                Spa Intelligence <span className="text-(--gold-soft)">· you are here</span>
-              </span>
-            </div>
-          </div>
-          <div>
-            <p className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-(--pearl)/70">Across the fleet</p>
-            <div className="mt-3 text-sm">
-              <ExtLink className="flex min-h-11 items-center text-(--pearl)/85 hover:text-(--gold-soft)" href="https://saltnotes.blog">
-                Salty & Clever
-              </ExtLink>
-              <ExtLink className="flex min-h-11 items-center text-(--pearl)/85 hover:text-(--gold-soft)" href="https://tangledthistle.blog">
-                Tangled Thistle
-              </ExtLink>
-              <ExtLink className="flex min-h-11 items-center text-(--pearl)/85 hover:text-(--gold-soft)" href="https://dramaroom.blog">
-                Room for Drama
-              </ExtLink>
-            </div>
-          </div>
-        </div>
+        <p className="font-mono text-[0.625rem] uppercase tracking-[0.28em] text-(--gold)">
+          Northern Lantern House Labs
+        </p>
+        <h2 className="mt-3 font-display text-2xl leading-none text-(--pearl) md:text-3xl">
+          Spa Intelligence
+        </h2>
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-(--pearl)/80">
+          Four questions before you book. Gaps stay gaps. Education only.
+        </p>
+        <nav aria-label="In this site" className="mt-10">
+          <p className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-(--pearl)/70">
+            In this site
+          </p>
+          <ul className="mt-3 flex flex-wrap gap-x-5 text-sm">
+            {[
+              ["/", "Start here"],
+              ["/desk", "Desk"],
+              ["/decode", "Decode"],
+              ["/library", "Library"],
+              ["/method", "Method"],
+              ["/packet", "Your decision"],
+            ].map(([to, label]) => (
+              <li key={to}>
+                <Link
+                  to={to}
+                  className="inline-flex min-h-11 items-center text-(--pearl)/85 no-underline hover:text-(--gold-soft)"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-(--pearl)/15 pt-6">
           <p className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-(--pearl)/70">
-            © 2026 Northern Lantern House
+            © 2026 Vanity or Vice
           </p>
-          <ExtLink
-            href={EDITORIAL.legal}
-            className="inline-flex min-h-11 items-center font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-(--pearl)/85 hover:text-(--gold-soft)"
-          >
-            Legal & Accessibility
-          </ExtLink>
-          <ExtLink
-            href={EDITORIAL.disclaimer}
-            className="inline-flex min-h-11 items-center font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-(--pearl)/85 hover:text-(--gold-soft)"
-          >
-            Editorial disclaimer
-          </ExtLink>
           <p className="ml-auto font-mono text-[0.625rem] uppercase tracking-[0.16em] text-(--pearl)/70">
             Education only · no diagnosis · no ranking · no candidacy
           </p>
