@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import { SupportFooter } from "@/components/SupportFooter";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Spa Intelligence";
@@ -41,6 +42,7 @@ export const Route = createRootRoute({
         <AuthProvider>
           <Outlet />
         </AuthProvider>
+        <SupportFooter />
         <Scripts />
       </body>
     </html>
