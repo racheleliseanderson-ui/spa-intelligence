@@ -1,4 +1,4 @@
-import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { DecisionRecordBridge } from "@/components/decision-record-bridge";
@@ -42,6 +42,12 @@ export const Route = createRootRoute({
         <PreviewHostBridge />
         <AuthProvider>
           <DecisionRecordBridge />
+          <Link
+            to="/record"
+            className="no-print fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-40 border border-(--bronze)/45 bg-(--bone)/95 px-3 py-2 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-(--oxblood) shadow-lg backdrop-blur hover:bg-(--parchment)"
+          >
+            Decision Record
+          </Link>
           <Outlet />
         </AuthProvider>
         <SupportFooter />
