@@ -1,7 +1,9 @@
 import { useId } from "react";
 import { Chip, ExtLink, Meter, Why } from "@/components/bits";
+import { EvidenceReceiptCard } from "@/components/evidence-receipt";
 import { EDITORIAL } from "@/lib/data/editorial";
 import { track } from "@/lib/analytics";
+import type { EvidenceReceipt } from "@/lib/decision-record";
 import type { Evaluation } from "@/lib/engine/types";
 
 export function ResultCard({
@@ -15,6 +17,21 @@ export function ResultCard({
 }) {
   const headingId = useId();
   const { posture, place, promise, gap, burden, nextSteps, weakest, identityLine, costHorizon } = evaluation;
+  const receipt: EvidenceReceipt = {
+    id: "spa-reasoning-v1",
+    claim: identityLine || posture.label,
+    source: "Setting/menu text on this desk + Vanity or Vice · Spa Intelligence disclosure rules",
+    publishedAt: "2026-09-01",
+    checkedAt: "2026-09-01",
+    exactObjectMatch: "setting",
+    confidence: place >= 75 ? "high" : evaluation.failClosed.length >= 4 ? "limited" : "moderate",
+    uncertainty: evaluation.unknowns.length
+      ? evaluation.unknowns
+      : ["Disclosure remains distinct from provider quality, safety, candidacy and outcome."],
+    commercialContext: "mixed",
+    correctionState: "current",
+    note: "The venue or menu is a commercial source; the desk's disclosure rules are editorial. Neither is converted into a clinical verdict.",
+  };
   return (
     <article className="panel overflow-hidden" aria-labelledby={headingId}>
       <div className="border-b border-(--rule) bg-(--bone) px-5 py-4 md:px-6">
@@ -43,6 +60,12 @@ export function ResultCard({
           <p className="mt-2 text-sm leading-relaxed">{posture.next}</p>
         </div>
       </div>
+
+      {!compact ? (
+        <div className="border-b border-(--rule) px-5 py-5 md:px-6">
+          <EvidenceReceiptCard receipt={receipt} />
+        </div>
+      ) : null}
 
       <div className="grid gap-6 p-5 md:grid-cols-3 md:p-6">
         <Meter value={place} label="Named (place)" />
