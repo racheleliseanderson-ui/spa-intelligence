@@ -3,6 +3,7 @@ export const DECISION_RECORD_STORAGE_KEY = "vv-decision-record-v1";
 export const DECISION_HANDOFF_KEY = "vvdr";
 
 export type VanityApplication = "makeup" | "skincare" | "spa";
+export type DecisionSourceApplication = VanityApplication | "publication";
 export type EvidenceConfidence = "high" | "moderate" | "limited" | "unknown";
 export type ExactObjectMatch = "exact" | "category" | "ingredient" | "mechanism" | "setting" | "unknown";
 export type CommercialContext = "independent" | "manufacturer" | "retailer" | "affiliate" | "sponsored" | "mixed" | "unknown";
@@ -53,7 +54,7 @@ export interface DecisionHistoryEntry {
 }
 
 export interface DecisionSource {
-  app: VanityApplication;
+  app: DecisionSourceApplication;
   at: string;
 }
 
