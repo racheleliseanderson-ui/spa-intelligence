@@ -1,4 +1,5 @@
 import {
+  appendDecision,
   appendDecisionHistory,
   appendEvidenceReceipt,
   buildDecisionHandoffUrl,
@@ -22,13 +23,13 @@ function constraints(input: DeskInput): string[] {
 
 export function decisionRecordForSpa(input: DeskInput): VanityDecisionRecord {
   let record = loadDecisionRecord() ?? createDecisionRecord("spa", {
-    concern: input.menuLine || input.serviceClass || "",
-    goals: input.serviceClass && input.serviceClass !== "unselected" ? [input.serviceClass] : [],
+    concern: input.menuLine || (input.serviceClass !== "unselected" ? input.serviceClass : ""),
+    goals: input.serviceClass !== "unselected" ? [input.serviceClass] : [],
     constraints: constraints(input),
   });
   record = setDecisionContext(record, "spa", {
-    concern: record.concern || input.menuLine || input.serviceClass || "",
-    goals: input.serviceClass && input.serviceClass !== "unselected" ? [input.serviceClass] : [],
+    concern: record.concern || input.menuLine || (input.serviceClass !== "unselected" ? input.serviceClass : ""),
+    goals: input.serviceClass !== "unselected" ? [input.serviceClass] : [],
     constraints: constraints(input),
     appState: {
       input: { ...input },
@@ -77,5 +78,16 @@ export function recordSpaConsult(input: DeskInput, scenario: SavedScenario) {
       priceNamed: Boolean(input.price),
     },
   );
+  const label = `Consult hold: ${scenario.name}`;
+  const lastDecision = [...record.decisions].reverse().find((d) => d.app === "spa");
+  if (!lastDecision || lastDecision.label !== label) {
+    record = appendDecision(
+      record,
+      "spa",
+      label,
+      "The setting record is saved for consultation and verification. This is not a treatment recommendation or booking approval.",
+      "held",
+    );
+  }
   saveDecisionRecord(record);
 }
