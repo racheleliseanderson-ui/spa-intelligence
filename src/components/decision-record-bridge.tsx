@@ -8,7 +8,7 @@ import {
   type DecisionHandoffEnvelope,
 } from "@/lib/decision-record";
 import { useDesk } from "@/lib/store";
-import { spaDecisionHandoffUrl } from "@/lib/spa-decision-record";
+import { decisionRecordForSpa, spaDecisionHandoffUrl } from "@/lib/spa-decision-record";
 
 export function DecisionRecordBridge() {
   const [incoming, setIncoming] = useState<DecisionHandoffEnvelope | null>(null);
@@ -45,14 +45,16 @@ export function DecisionRecordBridge() {
 
   const accept = () => {
     let record = acceptDecisionHandoff(incoming, "spa");
+    const currentInput = useDesk.getState().input;
     record = setDecisionContext(record, "spa", {
       appState: {
-        input: { ...useDesk.getState().input },
+        input: { ...currentInput },
         importedFrom: incoming.source.app,
         importedAt: incoming.source.at,
       },
     });
     saveDecisionRecord(record);
+    decisionRecordForSpa(currentInput);
     clearDecisionHandoffHash();
     setIncoming(null);
   };
