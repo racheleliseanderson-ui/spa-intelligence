@@ -9,7 +9,7 @@ export function EvidenceReceiptCard({ receipt }: { receipt: EvidenceReceipt }) {
       </div>
       <p className="mt-3 text-sm font-semibold text-(--ink)">{receipt.claim}</p>
       <dl className="mt-4 grid gap-3 text-xs sm:grid-cols-2">
-        <ReceiptRow label="Source" value={receipt.source} />
+        <ReceiptSource receipt={receipt} />
         <ReceiptRow label="Object match" value={receipt.exactObjectMatch} />
         <ReceiptRow label="Confidence" value={receipt.confidence} />
         <ReceiptRow label="Commercial context" value={receipt.commercialContext} />
@@ -24,6 +24,21 @@ export function EvidenceReceiptCard({ receipt }: { receipt: EvidenceReceipt }) {
       </div>
       {receipt.note ? <p className="mt-3 text-xs italic leading-relaxed text-(--ink-soft)">{receipt.note}</p> : null}
     </aside>
+  );
+}
+
+function ReceiptSource({ receipt }: { receipt: EvidenceReceipt }) {
+  return (
+    <div>
+      <dt className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-(--ink-soft)">Source</dt>
+      <dd className="mt-1 text-(--ink)">
+        {receipt.sourceUrl ? (
+          <a className="underline underline-offset-4" href={receipt.sourceUrl} target="_blank" rel="noreferrer">
+            {receipt.source} ↗
+          </a>
+        ) : receipt.source}
+      </dd>
+    </div>
   );
 }
 
