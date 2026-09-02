@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { DEMOS } from "@/lib/data/demos";
 import { EMPTY_INPUT, type DeskInput, type Mode, type SavedScenario } from "@/lib/engine/types";
+import { recordSpaConsult } from "@/lib/spa-decision-record";
 
 export type Theme = "pearl" | "dark" | "cvd";
 
@@ -82,6 +83,7 @@ export const useDesk = create<DeskState>()(
           pinned: false,
         };
         set({ saved: [scenario, ...saved].slice(0, 24), lastSavedAt: scenario.savedAt });
+        recordSpaConsult(input, scenario);
       },
       duplicateCurrent: () => {
         const { input } = get();
