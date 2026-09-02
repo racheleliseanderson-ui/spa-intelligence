@@ -3,7 +3,7 @@ export const EDITORIAL = {
   desks: "https://vanityvice.blog/desks/",
   spa: "https://vanityvice.blog/spa-intelligence/",
   menuAudit: "https://vanityvice.blog/spa-intelligence-read-treatment-menu-before-booking/",
-  claimDecoder: "https://vanityvice.blog/claim-decoder/",
+  claimDecoder: "https://spa.vanityvice.blog/decode",
   treatmentRoom: "https://vanityvice.blog/treatment-room/",
   fdaVerbs: "https://vanityvice.blog/fda-cleared-approved-registered-not-interchangeable/",
   medicalGrade: "https://vanityvice.blog/medical-grade-marketing-category-not-verdict/",
